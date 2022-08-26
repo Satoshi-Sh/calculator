@@ -6,22 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <h1 class="title">Calculator</h1>
-  <div class= calculator>  
-    <div class="ouput-div">
-
+  <div class= "calculator">  
+    <div class="output-div">
     </div>
-    <div class="numbers-div">
+    <div class="middle">
+        <div class="numbers-div">
+            <div class="row">
+               <button id="seven" class="number">7</button>
+               <button id = "eight" class="number">8</button>
+               <button id="nine" class="number">9</button>
+            </div>
+            <div class="row">
+               <button id="four" class="number">4</button>
+               <button id="five" class="number">5</button>
+               <button id ="six" class="number">6</button>
+            </div>
+            <div class="row">
+               <button id="one" class="number">1</button>
+               <button  id="two"class="number">2</button>
+               <button id="three" class="number">3</button>
+            </div>
+                <button id="zero" class="number">0</button>
+                <button id="dot" class="number">.</button>
+                <button id="del" class="number">Del</button> 
+            <div class="row">
 
-    </div>
-    
-    <div class="operators-div">
+            </div>
 
+        </div>
+           
+        <div class="operators-div">
+            <button id="divide" class="operator">÷</button>
+            <button id="times" class="operator">x</button>
+            <button id="minus" class="operator">-</button>
+            <button id="plus" class="operator">+</button>
+            <button id="equal" class="operator end">=</button>
+        </div>
     </div>
-    <div class="clear-div"></div>
+    <div class="clear-div">
+       <button id="clear" class="clear">clear</button>
+    </div>
   </div>
 </body>
 </html>
