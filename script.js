@@ -82,7 +82,11 @@ buttons.forEach(button =>{
 
 function display(e){
     if (e.target.innerText=='clear'){
+        //remove all 
         output.innerText='';
+        numbers = [];
+        operatorsArray = [];
+
     }
     else if (e.target.innerText=='Del'){
         if (output.innerText.length>0){
@@ -90,6 +94,16 @@ function display(e){
         output.innerText= output.innerText.substring(0,output.innerText.length -1)
         }
         }
+    }
+    else if (e.target.innerText=='='){
+        if (numbers.length>0){
+            output.innerText += e.target.innerText;
+        }
+    }
+    else if (e.target.innerText=='.'){
+        const number = output.innerText.split(/[x\-\+\=÷]/g).at(-1);
+        if (! number.includes('.')){
+        output.innerText += e.target.innerText;}
     }
     else {
     output.innerText += e.target.innerText;
@@ -105,38 +119,67 @@ operators.forEach(operator=>
 
 function record (e){
     // split operators and take the last element as number to record
-    const array = output.innerText.split(/[x\-\+\=÷]/g)
-    operatorsArray.push(e.target.innerText)
-    numbers.push(parseInt(array.at(-2)))
 
-    if (e.target.innerText=="="){
-    const answer = calculate(numbers,operatorsArray)  
-    output.innerText += answer;      
+    const array = output.innerText.split(/[x\-\+\=÷]/g)
+    
+    if (e.target.innerText!="="){
+    operatorsArray.push(e.target.innerText)
+    numbers.push(parseFloat(array.at(-2)))}
+
+    if (e.target.innerText=="=" & numbers.length>0){
+    operatorsArray.push(e.target.innerText)
+    numbers.push(parseFloat(array.at(-2)));
+    const answer = calculate(numbers,operatorsArray)
+    if (!isFinite(answer)) {
+        output.innerText ='Error: Divided by 0.'
+    }
+    else {  
+    output.innerText += rounding(answer);}    
     }
 }
 
 function calculate(numbers,opes){
     let answer = numbers[0];
-    console.log(answer)
+
     for (let i=1;i<numbers.length;i++){
-        console.log(answer);
         answer = operate(opes[i-1],answer,numbers[i])
     }
     return answer;
 } 
+
+// for numbers with long decimal point 
+
+function rounding(number){
+    if (countDecimals(number)>2){
+        return round(number)
+    }
+    return number
+}
+
+function countDecimals(number){
+    let string = number.toString()
+    if (string.includes('.')){
+        return string.split('.')[1].length
+    }
+    return 0;
+}
+function round(number){
+    return Math.round(number *100) /100
+}
+
 
 
 function operate(operator,a,b){
     if (operator == "+"){
         return add(a,b);
     }
-    else if (operator="-") {
+    else if (operator=="-") {
         return subtract(a,b);
     }
-    else if (operator="x"){
+    else if (operator=="x"){
         return multiply(a,b);
     }
-    else if (operator="÷") {
+    else if (operator=="÷") {
         return divide(a,b);
     }
 }
@@ -147,7 +190,7 @@ function add(a,b){
 }
 
 function subtract(a,b){
-    return a/b;
+    return a-b;
 }
 
 function multiply(a,b){
